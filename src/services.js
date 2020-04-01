@@ -28,26 +28,41 @@ export default class EventService {
 
     /**
      * Get the first upcomming event
-     * @return {null | Event}
+     * @return {result | Event}
      */
-    getFirstEvent() {
-        return null; //TODO
+    getFirstEvent() {   
+        let results = this._eventRepository.getAll();
+        results.sort( (a,b) => {      
+            return a.startTime - b.startTime;
+        })
+        const result = results[0];
+        return result;
     }
 
     /**
      * Get the last upcomming event
-     * @return {null | Event}
+     * @return {title | Event}
      */
     getLastEvent() {
-        return null; //TODO
+        let results = this._eventRepository.getAll();
+        results.sort((a, b) => {
+            return b.startTime - a.startTime;
+        })
+        const result = results[0];
+        return result; //TODO
     }
 
     /**
      * Get the longest event
-     * @return {null | Event}
+     * @return {result | Event}
      */
     getLongestEvent() {
-        return null; //TODO
+        let results = this._eventRepository.getAll();
+        results.sort((a, b) => {
+            return (b.endTime - b.startTime) - (a.endTime - a.startTime);
+        })
+        const result = results[0]; 
+        return result; //TODO
     }
 
     /**
